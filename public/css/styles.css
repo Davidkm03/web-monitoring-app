@@ -1,8 +1,10 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
+    background-color: #f0f0f0;
     margin: 0;
-    padding: 0;
+}
+
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,43 +14,132 @@ body {
 form {
     background: #fff;
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: 300px;
-    text-align: left;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
 }
 
 h1 {
     text-align: center;
     margin-bottom: 20px;
+    font-size: 24px;
 }
 
 label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     font-weight: bold;
+    color: #333;
 }
 
 input[type="text"],
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="url"],
+input[type="number"] {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box;
 }
 
 button {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     background-color: #4CAF50;
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
 }
 
 button:hover {
     background-color: #45a049;
+}
+
+@media (max-width: 600px) {
+    form {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    button {
+        padding: 10px;
+    }
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.05);
+}
+
+.navbar-nav .nav-link {
+    color: #fff;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #bbb;
+}
+/* Estilo para el menú lateral */
+#sidebar-wrapper {
+    background-color: #2c3e50;
+    height: 100vh;
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background-color: #1abc9c;
+}
+
+#sidebar-wrapper .list-group-item {
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+}
+
+#sidebar-wrapper .list-group-item:hover {
+    background-color: #1abc9c;
+}
+
+/* Estilo para la barra de navegación */
+.navbar {
+    padding: 10px 20px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #2c3e50;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #1abc9c;
+}
+
+/* Estilo para la tabla */
+.table {
+    margin-top: 20px;
+}
+
+.table th {
+    background-color: #1abc9c;
+    color: white;
+    border: none;
+}
+
+.table tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }

@@ -1,26 +1,29 @@
 <?php
 
+require_once __DIR__ . '/../helpers/csrf.php';
+
 class SiteController
 {
     public function add()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $url = $_POST['url'];
-            $name = $_POST['name'];
-            $checkInterval = $_POST['check_interval'];
-            $userId = $_SESSION['user_id'];
+            $data = [
+                'user_id' => $_SESSION['user_id'], // Asumiendo que el ID del usuario está almacenado en la sesión
+                'url' => sanitizeString($_POST['url']),
+                'name' => sanitizeString($_POST['name']),
+                'check_interval' => (int)$_POST['check_interval'],
+            ];
 
-            $site = new Site();
-            if ($site->create($userId, $url, $name, $checkInterval)) {
+            try {
+                Site::create($data);
                 echo "Site added successfully!";
-            } else {
-                echo "Failed to add site.";
+            } catch (Exception $e) {
+                echo "Error: " . $e->getMessage();
             }
         } else {
-            require __DIR__ . '/../views/site/add.php';
+            require __DIR__ . '/../views/user/add_site.php';
         }
     }
-
     public function list()
     {
         $userId = $_SESSION['user_id'];
@@ -33,6 +36,10 @@ class SiteController
     public function delete()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!verifyCsrfToken($_POST['csrf_token'])) {
+                die('Invalid CSRF token');
+            }
+
             $id = $_POST['id'];
             $userId = $_SESSION['user_id'];
 
@@ -43,5 +50,15 @@ class SiteController
                 echo "Failed to delete site.";
             }
         }
+    }
+
+    public function view($id)
+    {
+        $userId = $_SESSION['user_id'];
+        $site = new Site();
+        $siteDetails = $site->getByIdAndUserId($id, $userId);
+        $checkHistory = $site->getCheckHistory($id);
+
+        require __DIR__ . '/../views/site/view.php';
     }
 }
